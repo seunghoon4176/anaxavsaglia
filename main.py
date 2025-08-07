@@ -180,6 +180,12 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("아낙사 vs 아글라이아 Beta 0.0.1")
+    # 아이콘 적용
+    try:
+        icon = pygame.image.load("anaxa.ico")
+        pygame.display.set_icon(icon)
+    except Exception as e:
+        print(f"아이콘 로드 실패: {e}")
     clock = pygame.time.Clock()
 
     # 플랫폼(2층, 3층 등) 정의: (x, y, w, h)
@@ -191,7 +197,7 @@ def main():
 
     # 플레이어 생성
     player1 = Fighter(100, HEIGHT - 150, "aglia")
-    player2 = Fighter(600, HEIGHT - 150, "anaxa")
+    player2 = Fighter(900, HEIGHT - 150, "anaxa")
 
     # 라운드/타이머/승리 수
     round_time = 120  # 120초
