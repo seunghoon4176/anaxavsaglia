@@ -179,15 +179,15 @@ class Fighter:
 def main():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("1vs1 격투게임")
+    pygame.display.set_caption("아낙사 vs 아글라이아 Beta 0.0.1")
     clock = pygame.time.Clock()
 
     # 플랫폼(2층, 3층 등) 정의: (x, y, w, h)
-    platforms = [
-        pygame.Rect(200, 600, 300, 20),   # 2층 왼쪽 (낮춤)
-        pygame.Rect(780, 600, 300, 20),   # 2층 오른쪽 (낮춤)
-        pygame.Rect(500, 420, 280, 20),   # 3층 중앙 (낮춤)
-    ]
+    # platforms = [
+    #     pygame.Rect(200, 600, 300, 20),   # 2층 왼쪽 (낮춤)
+    #     pygame.Rect(780, 600, 300, 20),   # 2층 오른쪽 (낮춤)
+    #     pygame.Rect(500, 420, 280, 20),   # 3층 중앙 (낮춤)
+    # ]
 
     # 플레이어 생성
     player1 = Fighter(100, HEIGHT - 150, "aglia")
@@ -210,26 +210,7 @@ def main():
 
     def platform_collision(player, jump_flag_name):
         # 플레이어가 플랫폼 위에 서도록 처리
-        for plat in platforms:
-            px, py, pw, ph = plat
-            # 플레이어가 아래에서 위로 올라올 때만 착지
-            if player.vy >= 0:
-                # feet_y: 플레이어 발바닥 y좌표
-                feet_y = player.y + PLAYER_SIZE[1]
-                if (
-                    player.x + PLAYER_SIZE[0] > px and player.x < px + pw and
-                    feet_y >= py and feet_y - player.vy < py
-                ):
-                    player.y = py - PLAYER_SIZE[1]
-                    player.vy = 0
-                    player.on_ground = True
-                    player.jumping = False
-                    # 점프 입력 플래그도 False로 리셋
-                    nonlocal p1_jump_pressed, p2_jump_pressed
-                    if jump_flag_name == 'p1_jump_pressed':
-                        p1_jump_pressed = False
-                    elif jump_flag_name == 'p2_jump_pressed':
-                        p2_jump_pressed = False
+        pass  # 플랫폼 기능 비활성화
 
     running = True
     round_countdown = 0
@@ -299,9 +280,9 @@ def main():
         if not round_over:
             player1.update()
             player2.update()
-            # 플랫폼 충돌 처리 (점프 입력 플래그도 전달)
-            platform_collision(player1, 'p1_jump_pressed')
-            platform_collision(player2, 'p2_jump_pressed')
+        # 플랫폼 충돌 처리 (점프 입력 플래그도 전달)
+        # platform_collision(player1, 'p1_jump_pressed')
+        # platform_collision(player2, 'p2_jump_pressed')
 
         # 라운드 종료 체크 및 카운트다운
         if not round_over:
@@ -400,8 +381,8 @@ def main():
         screen.blit(round_text, round_rect)
 
         # 플랫폼 그리기
-        for plat in platforms:
-            pygame.draw.rect(screen, (180,180,180), plat)
+        # for plat in platforms:
+        #     pygame.draw.rect(screen, (180,180,180), plat)
 
         # 최종 승자 표시
         if match_over:
